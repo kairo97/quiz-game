@@ -61,7 +61,11 @@ header{
     border: solid black 1px;
     margin: 10px;
     font-size: larger;
-
+    
+}
+.navigation{
+    display: flex;
+    justify-content: space-around;
 }
 .nxt{
     float: right;
@@ -73,4 +77,15 @@ header{
 .nxt:hover{
     opacity: 0.5;
 }
+.submit{
+    max-width: fit-content;
+    background-color: crimson;
+    border-radius: 25px;
+    margin-right: 0 auto;
+    opacity:1;
+}
+.submit:hover{
+    opacity: 0.5;
+}
+
 
