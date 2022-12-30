@@ -1,91 +1,62 @@
-*{
-    font-family: Arial, Helvetica, sans-serif;
+*, *::before, *::after{
+    box-sizing: border-box;
+    font-family: sans-serif;
 }
-header{
-    border: solid black 2px;
+body{
+    padding: 0;
+    margin: 0;
     display: flex;
-    justify-content: space-around;
-}
-#highscore{
-    background-color: crimson;
-    border-radius: 25px;
-    max-height: fit-content;
-    margin: 25px;
-    opacity: 1;
-    
-}
-#highscore:hover{
-    opacity: 0.5;
-}
-#quizgame{
-    background-color: indigo;
-    color: aquamarine;
-    padding: 4px;
-    border-radius: 25px;
-    justify-self: center;
-}
-#description{
-    margin: 20px;
-    display: flex;
-    flex-wrap: wrap;
-
-}
-#description button{
-    margin:0 auto;
-    background-color: crimson;
-    border-radius: 25px;
-    opacity: 1;
-}
-#description button:hover{
-    opacity: 0.5;
-}
-.questions{
-    display:flex;
-    flex-direction: column;
+    width:100vh;
+    height:100vh;
     justify-content: center;
-    border: solid black 2px;
+    align-items: center;
 }
-.question-header{
-    margin:0 auto;
-    background-color: indigo;
-    color:aquamarine;
-    padding: 5px;
-    border-radius: 25px;
+.container{
+    flex-wrap: wrap;
+    width:800px;
+    max-width: 80%;
+    background-color: aliceblue;
+    border-radius: 5px;
+    padding:10px;
+    box-shadow: 0 0 10px 2px;
 }
-.answers{
-    list-style: none;
-    margin:0 auto;
-    padding:5px;
+
+.btn-grid{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap:10px;
+    margin:20px;
 }
-.answers li{
-    border: solid black 1px;
-    margin: 10px;
-    font-size: larger;
-    
+.btn{
+    background-color: blue;
+    border:1px solid blue;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin:5px;
+    color:aliceblue;
+    outline: none;
 }
-.navigation{
+.btn:hover{
+    border-color: black;
+}
+.btn.correct{
+    background-color: green;
+    color: black;
+}
+.btn.wrong{
+    background-color: red;
+    color: black;
+}
+.start-btn, .next-btn{
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding:10px 20px;
+}
+.controls{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    padding-top: 10px;
 }
-.nxt{
-    float: right;
-    background-color: crimson;
-    border-radius: 25px;
-    max-width: fit-content;
-    opacity: 1;
+.hide{
+    display: none;
 }
-.nxt:hover{
-    opacity: 0.5;
-}
-.submit{
-    max-width: fit-content;
-    background-color: crimson;
-    border-radius: 25px;
-    margin-right: 0 auto;
-    opacity:1;
-}
-.submit:hover{
-    opacity: 0.5;
-}
-
-

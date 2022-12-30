@@ -8,166 +8,21 @@
     <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-    <header>
-        <button id="highscore" href="#">view highscores</button>
-        <h1 id="quizgame">
-            Comic Book Quiz Game 
-        </h1>
-    </header>
-    <section id="description">
-        <p>
-            This is a multiple choice quiz game based on DC and Marvel comic books, you will have ten seconds to answer each question, there will be 8 questions that get progressively harder, at the end of the game your score will be displayed and you will have the opportunity to add your score to the highscore list if you wish to do so.
-        </p>
-        <button id="start" href="#">Start Quiz</button>
-    </section>
-    <div class ="questions">
-        <h2 class="question-header">
-            What is the real name of Superman?
-        </h2>
-        <div class="answers" id="0">
-        <button class="option" id="op1">A. Clark Kent</button>
-        <button class="option" id="op2">B. Kent Clark</button>
-        <button class="option" id="op3">C. Calvin Ellis</button>
-        <button class="option" click= "" id="op4">D. Kal-El</button>
+    <div class="container">
+        <div id="question-container" class="hide">
+            <div id="question">Question</div>
+            <div id="answer-btn" class="btn-grid"></div>
+            <button class="btn"> answer1</button>
+            <button class="btn"> answer2</button>
+            <button class="btn"> answer3</button>
+            <button class="btn"> answer4</button>
         </div>
-        <div class="navigation">
-        <button class="nxt">next question</button>
-        <button class="submit">submit</button>
-        </div>
-        <div class="result">
+        <div class="controls">
+            <button id="start-btn" class="start-btn btn">start</button>
+            <button id="next-btn" class="next-btn btn hide">next</button>
         </div>
 
     </div>
-    <div class="questions">
-        <h2 class="question-header">
-            Who killed the parents of Bruce Wayne?
-        </h2>
-        <div class="answers" id="1">
-            <button>A. the Joker</button>
-            <button>B. a random street thug</button>
-            <button>C. Joe Chill</button>
-            <button>D. Oswald Cobblepot</button>
-        </div>
-        <div class="navigation">
-            <button class="nxt">next question</button>
-        <button class="submit">submit</button>
-        </div>
-        <div class="result">
-
-        </div>
-        </div>
-    </div>
-    <div class="questions">
-        <h2 class="question-header">
-            Who out of the following has not been a Robin?
-        </h2>
-        <div class="answers" id="2">
-        <button>A. Dick Grayson</button>
-        <button>B. Damien Wayne</button>
-        <button>C. Jace Fox</button>
-        <button>D. Jason Todd</button>
-        </div>
-        <div class="navigation">
-        <button class="nxt">next question</button>
-        <button class="submit">submit</button>
-        </div>
-        <div class="result">
-
-        </div>
-    </div>
-    <div class="questions">
-        <h2 class="question-header">
-            Dr. Stephen Vincent Strange MD PHD is a doctor of what field of medicine?
-        </h2>
-        <div class="answers" id="3">
-        <button>A. Neurosurgery</button>
-        <button>B. Psychology</button>
-        <button>C. Pediatrics</button>
-        <button>D. Cancer research</button>
-        </div>
-        <div class="navigation">
-        <button class="nxt">next question</button>
-        <button class="submit">submit</button>
-        </div>
-        <div class="result">
-
-        </div>
-    </div>
-    <div class="questions">
-        <h2 class="question-header">
-            Which Marvel character was created specifically as a parody of a DC character
-        </h2>
-        <div class="answers" id="4">
-        <button>A. Nick Fury</button>
-        <button>B. Deadpool</button>
-        <button>C. Black Widow</button>
-        <button>D. Moon Knight</button>
-        </div>
-        <div class="navigation">
-        <button class="nxt">next question</button>
-        <button class="submit">submit</button>
-        </div>
-        <div class="result">
-
-        </div>
-    </div>
-    <div class="questions">
-        <h2 class="question-header">
-            In the Ultimate Spider-Man comic book series written by Brian Michael Bendis what is the origin of the Venom symbiote?
-        </h2>
-        <div class="answers" id="5">
-        <button>A. Alien lifeform from an asteroid</button>
-        <button>B. Made on purpose by Dr. Otto Octavius</button>
-        <button>C. A failed cure for cancer</button>
-        <button>D. It remains a mystery</button>
-        </div>
-        <div class="navigation">
-        <button class="nxt">next question</button>
-        <button class="submit">submit</button>
-        </div>
-        <div class="result">
-        </div>
-    <div class="questions">
-        <h2 class="question-header">
-            The original Green lantern, Alan Scott has a weakness to what?
-        </h2>
-        <div class="answers" id="6">
-        <button>A. The color yellow</button>
-        <button>B. Magic</button>
-        <button>C. Fear itself</button>
-        <button>D. Wood</button>
-        </div>
-        <div class="navigation">
-        <button class="nxt">next question</button>
-        <button class="submit">submit</button>
-        </div>
-        <div class="result">
-
-        </div>
-    </div>
-    <div class="questions">
-        <h2 class="question-header">
-            the famous character from StarWars Darth Vader was inspired by what comic book character?
-        </h2>
-        <div class="answers" id="7">
-        <button>A. Dr. Victor Von Doom</button>
-        <button>B. Iron Man (Tony Stark)</button>
-        <button>C. Black Mask (Roman Sionis)</button>
-        <button>D. Bane (Antonio Diego)</button>
-        </div>
-        <div class="navigation">
-        <button class="nxt">finish quiz</button>
-        <button class="submit">submit</button>
-        </div>
-        <div class="result">
-
-        </div>
-    </div>
-    <footer>
-        <h3>
-            Made by Kai Ropp 2022
-        </h3>
-    </footer>
-    <link rel="script" href="./assets/script.js">
 </body>
+<script src="./assets/script.js"></script>
 </html>
