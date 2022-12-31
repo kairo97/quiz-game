@@ -1,6 +1,6 @@
-// 1 done TODO: make opening page that dexribes the quiz's content breifly
-// 2 TODO: make a button on opening page that will change page to start of game
-// 3 TODO: make a page with the first question and four possible answers, each clickable
+// 1 done. make opening page that dexribes the quiz's content breifly
+// 2 done.  make a button on opening page that will change page to start of game
+// 3 done. make a page with the first question and four possible answers, each clickable
 // 4 TODO: make each answer diplay opaque on hover and on click display correct or wrong at bottom of page
 // 5 TODO: make timer in corner of page recording how long each question takes
 // 6 TODO: make a button at bottom page, only displayed after answer is clicked to move to next question
@@ -24,7 +24,6 @@ nextButton.addEventListener('click', () => {
     setNextQuestion()
 })
 function startGame() {
-    console.log("started")
     startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
@@ -39,7 +38,7 @@ function setNextQuestion() {
 }
 
 function showQuestion(question){
-    questionElement.innerText = question.question
+    questionElement.innerText = question.question;
     question.answers.forEach(answer => {
         var button = document.createElement('button')
         button.innerText = answer.text
@@ -55,7 +54,8 @@ function showQuestion(question){
 function resetState() {
     nextButton.classList.add('hide')
     while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+        answerButtonsElement.removeChild
+        (answerButtonsElement.firstChild)
     }
 }
 
@@ -89,12 +89,75 @@ function clearStatusClass(element){
 
 var questions = [
     {
-    question: 'What is the real name of superman?',
+    question: 'What is the real name of Superman?',
     answers: [
         { text: 'Clark Kent', correct: false },
         { text: 'Kent Clark', correct: false },
         { text: 'Calvin Ellis', correct: false},
         { text: 'Kal-El', correct: true}
+    ]
+},
+{
+    question: "who killed Bruce Wayne's parents",
+    answers: [
+        { text: 'The Joker', correct: false },
+        { text: 'A random thug', correct: false },
+        { text: 'Joe Chill', correct: true },
+        { text: 'Oswald Cobblepot', correct: false }
+    ]
+},
+{
+    question: 'Dr Stephen Vincent Strange PHD MD is a doctor in what field of medicine?',
+    answers: [
+        { text: 'Neurosurgery', correct: true },
+        { text: 'Pediatrics', correct: false },
+        { text: 'Cancer Research', correct: false },
+        { text: 'Radiology', correct: false }
+    ]
+},
+{
+    question: 'Which of the following characters has never been a Robin?',
+    answers: [
+        { text: 'Jason Todd', correct: false },
+        { text: 'Dick Grayson', correct: false },
+        { text: 'Jace Fox', correct: true },
+        { text: 'Damien Wayne', correct: false }
+    ]
+},
+{
+    question: 'Which Marvel character was created specifically as a parody of an existing DC character?',
+    answers: [
+        { text: 'Black Widow', correct: false },
+        { text: 'Deadpool', correct: true },
+        { text: 'Star-Lord', correct: false },
+        { text: 'Moon Knight', correct: false }
+    ]
+},
+{
+    question: 'The Original Green-Lantern, Alan Scott has a weakness to what?',
+    answers: [
+        { text: 'The color yellow', correct: false },
+        { text: 'Fear itself', correct: false },
+        { text: 'Alien Blood', correct: false },
+        { text: 'Wood', correct: true }
+    ]
+},
+{
+    question: 'In the Ultimate Spider-man comic book series by Brian Michael Bendis, what is the origin of the Venom Symbiote?',
+    answers: [
+        { text: 'An alien from an asteroid', correct: false },
+        { text: 'A failed cure for cancer', correct: true },
+        { text: 'An experiment by Otto Octavius', correct: false },
+        { text: 'A byproduct of creating nuclear weapons', correct: false }
+    ]
+},
+{
+    question: 'What comic book character was the inspiration for famous Star Wars villian Darth Vader?',
+    answers: [
+        { text: 'Tony Stark (Iron Man)', correct: false },
+        { text: 'Roman Sionis (Black Mask)', correct: false },
+        { text: 'Dr Victor Von Doom', correct: true },
+        { text: 'Slade Wilson (Deathstroke the Terminator)', correct: false }
     ]
 }
 ]
