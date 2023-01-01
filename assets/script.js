@@ -3,8 +3,8 @@
 // 3 done. make a page with the first question and four possible answers, each clickable
 // 4 TODO: make each answer diplay opaque on hover and on click display correct or wrong at bottom of page
 // 5 TODO: make timer in corner of page recording how long each question takes
-// 6 TODO: make a button at bottom page, only displayed after answer is clicked to move to next question
-// 7 TODO: repeat steps 2-6 over 5-10 pages of questions
+// 6 done make a button at bottom page, only displayed after answer is clicked to move to next question
+// 7 done repeat steps 2-6 over 5-10 pages of questions
 // 8 TODO: log number of right and wrong questions
 // 9 TODO: log amount of time taken on each question
 // 10 TODO: determine score based on questions answered correctly
@@ -50,6 +50,22 @@ function showQuestion(question){
         answerButtonsElement.appendChild(button)
     })
 }
+function startTimer(duration, display){
+    var timer = duration, seconds;
+    setInterval(function() {
+    seconds = parseInt(timer % 60, 10);
+    seconds = seconds <10  ? '0' + seconds : seconds;
+    display.textContent = ":" + seconds;
+    if (--timer<0){
+        timer = duration;
+    }
+}, 1000);
+}
+window.onload = function() {
+    var tenSeconds = 10,
+    display = document.querySelector('#timer');
+    startTimer(tenSeconds, display);
+};
 
 function resetState() {
     nextButton.classList.add('hide')
