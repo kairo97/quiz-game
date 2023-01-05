@@ -1,8 +1,8 @@
 // 1 done. make opening page that dexribes the quiz's content breifly
 // 2 done.  make a button on opening page that will change page to start of game
 // 3 done. make a page with the first question and four possible answers, each clickable
-// 4 TODO: make each answer diplay opaque on hover and on click display correct or wrong at bottom of page
-// 5 TODO: make timer in corner of page recording how long each question takes
+// 4  make each answer diplay opaque on hover and on click display correct or wrong at bottom of page
+// 5 make timer in corner of page recording how long each question takes
 // 6 done make a button at bottom page, only displayed after answer is clicked to move to next question
 // 7 done repeat steps 2-6 over 5-10 pages of questions
 // 8 TODO: log number of right and wrong questions
@@ -10,31 +10,62 @@
 // 10 TODO: determine score based on questions answered correctly
 // 11 TODO: diplay score at end of quiz
 // 12 TODO: give option to log score with name on highscore page
-var startButton = document.getElementById('start-btn')
-var nextButton = document.getElementById('next-btn')
-var questionContainerElement = document.getElementById('question-container')
-var questionElement = document.getElementById('question')
-var answerButtonsElement = document.getElementById('answer-btn')
-
-var shuffledQuestions, currentQuestionIndex
-
+var startButton = document.getElementById('start-btn');
+var nextButton = document.getElementById('next-btn');
+var questionContainerElement = document.getElementById('question-container');
+var questionElement = document.getElementById('question');
+var answerButtonsElement = document.getElementById('answer-btn');
+var clockElement = document.getElementById('timer');
+var win = document.getElementById('correct-score');
+var lose = document.getElementById('incorrect-score');
+var shuffledQuestions, currentQuestionIndex;
+var correctScore = 0;
+var inCorrectScore = 0;
+var isCorrect = false;
+var timer;
+var timerCount;
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
     currentQuestionIndex++
     setNextQuestion()
 })
+function init(){
+    
+}
+function countDown() {
+   timer = setInterval(function() {
+    timerCount--;
+    clockElement.textContent = timerCount;
+    if (timerCount >= 0) {
+        if (isCorrect && timerCount > 0) {
+            clearInterval(timer);
+            addPoint();
+        } else {
+            clearInterval(timer);
+            losePoint();
+        }
+    }
+    if (timerCount === 0) {
+        clearInterval(timer);
+        losePoint();
+    }
+   }, 1000);
+}
 function startGame() {
+    timerCount = 10;
     startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
-    setNextQuestion()
-
+    setNextQuestion();
+    countDown();
+    
 }
 function setNextQuestion() {
     resetState()
     showQuestion(shuffledQuestions[currentQuestionIndex])
-
+    countDown()
+    
 }
 
 function showQuestion(question){
@@ -44,28 +75,13 @@ function showQuestion(question){
         button.innerText = answer.text
         button.classList.add('btn')
         if (answer.correct) {
-            button.dataset.correct = answer.correct
+            button.dataset.correct = answer.correct;
         }
         button.addEventListener('click', selectAnswer) 
         answerButtonsElement.appendChild(button)
+        
     })
 }
-function startTimer(duration, display){
-    var timer = duration, seconds;
-    setInterval(function() {
-    seconds = parseInt(timer % 60, 10);
-    seconds = seconds <10  ? '0' + seconds : seconds;
-    display.textContent = ":" + seconds;
-    if (--timer<0){
-        timer = duration;
-    }
-}, 1000);
-}
-window.onload = function() {
-    var tenSeconds = 10,
-    display = document.querySelector('#timer');
-    startTimer(tenSeconds, display);
-};
 
 function resetState() {
     nextButton.classList.add('hide')
@@ -83,11 +99,11 @@ function selectAnswer(e) {
         setStatusClass(button, button.dataset.correct)
     })
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
-    nextButton.classList.remove('hide')
-} else {
-    startButton.innerText = 'Restart'
-    startButton.classList.remove('hide')
-}
+        nextButton.classList.remove('hide')
+    } else {
+        startButton.innerText = 'Restart'
+        startButton.classList.remove('hide')
+    }
 }
 function setStatusClass(element, correct) {
     clearStatusClass(element)
@@ -102,11 +118,39 @@ function clearStatusClass(element){
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
+function setCorrectScore() {
+    correctScore.textContent = correctScore;
+    localStorage.setItem('correct-score', correctScore);
+}
+function setinCorrectScore() {
+    inCorrectScore.textContent = inCorrectScore;
+    localStorage.setItem('incorrect-score', inCorrectScore);
+}
+function addPoint() {
+    var storedPoints = localStorage.getItem('correct-score'); 
+    if (storedPoints === null) {
+        correctScore = 0;
+    } else {
+        correctScore = storedPoints;
+    }
+    win.textContent = correctScore;
+}
+function losePoint() {
+    var storedLoss = localStorage.getItem('inCorrect-score');
+    if (storedLoss === null) {
+        inCorrectScore = 0;
+    } else {
+        inCorrectScore = storedLoss;
+    }
+    lose.textContent = inCorrectScore;
+    setNextQuestion();
+
+}
 
 var questions = [
     {
-    question: 'What is the real name of Superman?',
-    answers: [
+        question: 'What is the real name of Superman?',
+        answers: [
         { text: 'Clark Kent', correct: false },
         { text: 'Kent Clark', correct: false },
         { text: 'Calvin Ellis', correct: false},
