@@ -24,46 +24,43 @@ var inCorrectScore = 0;
 var isCorrect = false;
 var timer;
 var timerCount;
+var playerChoice;
+
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
     currentQuestionIndex++
     setNextQuestion()
 })
-function init(){
-    
-}
+
 function countDown() {
-   timer = setInterval(function() {
-    timerCount--;
-    clockElement.textContent = timerCount;
-    if (timerCount >= 0) {
-        if (isCorrect && timerCount > 0) {
-            clearInterval(timer);
-            addPoint();
-        } else {
-            clearInterval(timer);
-            losePoint();
+    timeLeft = 10;
+    var timeIntreval = setInterval(function () {
+        if (timeLeft > 0) {
+             clockElement.textContent = timeLeft;
+             timeLeft --;
+        } else if (timeLeft === 0){ 
+            clearInterval(timeIntreval);
         }
-    }
-    if (timerCount === 0) {
-        clearInterval(timer);
-        losePoint();
-    }
-   }, 1000);
+    
+    }, 1000);
+    
 }
 function startGame() {
     timerCount = 10;
+    isCorrect = false;
     startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
     setNextQuestion();
-    countDown();
+    
     
 }
 function setNextQuestion() {
     resetState()
     showQuestion(shuffledQuestions[currentQuestionIndex])
+    setCorrectScore()
+    setinCorrectScore()
     countDown()
     
 }
@@ -76,19 +73,23 @@ function showQuestion(question){
         button.classList.add('btn')
         if (answer.correct) {
             button.dataset.correct = answer.correct;
+            addPoint()
+        } else {
+            losePoint()
         }
         button.addEventListener('click', selectAnswer) 
         answerButtonsElement.appendChild(button)
         
-    })
+    },)
 }
 
 function resetState() {
-    nextButton.classList.add('hide')
+        nextButton.classList.add('hide')
     while (answerButtonsElement.firstChild) {
         answerButtonsElement.removeChild
         (answerButtonsElement.firstChild)
     }
+    
 }
 
 function selectAnswer(e) {
@@ -131,7 +132,7 @@ function addPoint() {
     if (storedPoints === null) {
         correctScore = 0;
     } else {
-        correctScore = storedPoints;
+        correctScore = storedPoints ++;
     }
     win.textContent = correctScore;
 }
@@ -140,7 +141,7 @@ function losePoint() {
     if (storedLoss === null) {
         inCorrectScore = 0;
     } else {
-        inCorrectScore = storedLoss;
+        inCorrectScore = storedLoss ++;
     }
     lose.textContent = inCorrectScore;
     setNextQuestion();

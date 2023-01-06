@@ -7,11 +7,10 @@ body{
     margin: 0 auto;
     display: flex;
     width:100vh;
-    height:100vh;
+    min-height:100vh;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    flex-shrink: 1;
 }
 .nav-bar{
     display: flex;
@@ -94,7 +93,4 @@ max-height: 200px;
 }
 .hide{
     display: none;
-}
-footer{
-    bottom:0;
 }
