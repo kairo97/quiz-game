@@ -1,160 +1,10 @@
-// 1 done. make opening page that dexribes the quiz's content breifly
-// 2 done.  make a button on opening page that will change page to start of game
-// 3 done. make a page with the first question and four possible answers, each clickable
-// 4  make each answer diplay opaque on hover and on click display correct or wrong at bottom of page
-// 5 make timer in corner of page recording how long each question takes
-// 6 done make a button at bottom page, only displayed after answer is clicked to move to next question
-// 7 done repeat steps 2-6 over 5-10 pages of questions
-// 8 TODO: log number of right and wrong questions
-// 9 TODO: log amount of time taken on each question
-// 10 TODO: determine score based on questions answered correctly
-// 11 TODO: diplay score at end of quiz
-// 12 TODO: give option to log score with name on highscore page
-var startButton = document.getElementById('start-btn');
-var nextButton = document.getElementById('next-btn');
-var questionContainerElement = document.getElementById('question-container');
-var questionElement = document.getElementById('question');
-var answerButtonsElement = document.getElementById('answer-btn');
-var clockElement = document.getElementById('timer');
-var win = document.getElementById('correct-score');
-var lose = document.getElementById('incorrect-score');
-var shuffledQuestions, currentQuestionIndex;
-var correctScore = 0;
-var inCorrectScore = 0;
-var isCorrect = false;
-var timer;
-var timerCount;
-var playerChoice;
-
-startButton.addEventListener('click', startGame)
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++
-    setNextQuestion()
-})
-
-function countDown() {
-    timeLeft = 10;
-    var timeIntreval = setInterval(function () {
-        if (timeLeft > 0) {
-             clockElement.textContent = timeLeft;
-             timeLeft --;
-        } else if (timeLeft === 0){ 
-            clearInterval(timeIntreval);
-        }
-    
-    }, 1000);
-    
-}
-function startGame() {
-    timerCount = 10;
-    isCorrect = false;
-    startButton.classList.add('hide')
-    shuffledQuestions = questions.sort(() => Math.random() - .5)
-    currentQuestionIndex = 0
-    questionContainerElement.classList.remove('hide')
-    setNextQuestion();
-    
-    
-}
-function setNextQuestion() {
-    resetState()
-    showQuestion(shuffledQuestions[currentQuestionIndex])
-    setCorrectScore()
-    setinCorrectScore()
-    countDown()
-    
-}
-
-function showQuestion(question){
-    questionElement.innerText = question.question;
-    question.answers.forEach(answer => {
-        var button = document.createElement('button')
-        button.innerText = answer.text
-        button.classList.add('btn')
-        if (answer.correct) {
-            button.dataset.correct = answer.correct;
-            addPoint()
-        } else {
-            losePoint()
-        }
-        button.addEventListener('click', selectAnswer) 
-        answerButtonsElement.appendChild(button)
-        
-    },)
-}
-
-function resetState() {
-        nextButton.classList.add('hide')
-    while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild
-        (answerButtonsElement.firstChild)
-    }
-    
-}
-
-function selectAnswer(e) {
-    var selectedButton = e.target
-    var correct = selectedButton.dataset.correct
-    setStatusClass(document.body, correct)
-    Array.from(answerButtonsElement.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct)
-    })
-    if (shuffledQuestions.length > currentQuestionIndex + 1) {
-        nextButton.classList.remove('hide')
-    } else {
-        startButton.innerText = 'Restart'
-        startButton.classList.remove('hide')
-    }
-}
-function setStatusClass(element, correct) {
-    clearStatusClass(element)
-    if (correct) {
-        element.classList.add('correct')
-    } else {
-        element.classList.add('wrong')
-    }
-}
-
-function clearStatusClass(element){
-    element.classList.remove('correct')
-    element.classList.remove('wrong')
-}
-function setCorrectScore() {
-    correctScore.textContent = correctScore;
-    localStorage.setItem('correct-score', correctScore);
-}
-function setinCorrectScore() {
-    inCorrectScore.textContent = inCorrectScore;
-    localStorage.setItem('incorrect-score', inCorrectScore);
-}
-function addPoint() {
-    var storedPoints = localStorage.getItem('correct-score'); 
-    if (storedPoints === null) {
-        correctScore = 0;
-    } else {
-        correctScore = storedPoints ++;
-    }
-    win.textContent = correctScore;
-}
-function losePoint() {
-    var storedLoss = localStorage.getItem('inCorrect-score');
-    if (storedLoss === null) {
-        inCorrectScore = 0;
-    } else {
-        inCorrectScore = storedLoss ++;
-    }
-    lose.textContent = inCorrectScore;
-    setNextQuestion();
-
-}
-
 var questions = [
-    {
-        question: 'What is the real name of Superman?',
-        answers: [
-        { text: 'Clark Kent', correct: false },
-        { text: 'Kent Clark', correct: false },
-        { text: 'Calvin Ellis', correct: false},
+  {
+    question: 'What is the real name of Superman?',
+    answers: [
+      { text: 'Clark Kent', correct: false },
+      { text: 'Kent Clark', correct: false },
+      { text: 'Calvin Ellis', correct: false },
         { text: 'Kal-El', correct: true}
     ]
 },
@@ -222,3 +72,119 @@ var questions = [
     ]
 }
 ]
+var startButton = document.getElementById('start-btn');
+var nextButton = document.getElementById('next-btn');
+var questionContainerElement = document.getElementById('question-container');
+var questionElement = document.getElementById('question');
+var answerButtonsElement = document.getElementById('answer-buttons');
+var clockElement = document.getElementById('timer');
+var win = document.getElementById('correct-score');
+var lose = document.getElementById('incorrect-score');
+var shuffledQuestions, currentQuestionIndex;
+var correctScore = 0;
+var incorrectScore = 0;
+var isCorrect = false;
+var timeLeft;
+var timer;
+
+startButton.addEventListener('click', startGame);
+nextButton.addEventListener('click', setNextQuestion);
+
+
+function startGame() {
+    correctScore = 0;
+    incorrectScore = 0;
+    win.textContent = correctScore;
+    lose.textContent = incorrectScore;
+    isCorrect = false;
+    startButton.classList.add('hide');
+    shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+    currentQuestionIndex = 0;
+    questionContainerElement.classList.remove('hide');
+    setNextQuestion();
+}
+function setNextQuestion() {
+  resetState();
+  if (currentQuestionIndex < shuffledQuestions.length) {
+    showQuestion(shuffledQuestions[currentQuestionIndex]);
+    countDown();
+  } else {
+    clearInterval(timer);
+    questionContainerElement.classList.add('hide');
+    startButton.classList.remove('hide');
+  }
+}
+function countDown() {
+  timeLeft = 10;
+  clockElement.textContent = timeLeft;
+  timer = setInterval(function() {
+    if (timeLeft > 0) {
+      timeLeft--;
+      clockElement.textContent = timeLeft;
+    } else {
+        setNextQuestion();
+        incorrectScore++;
+      clearInterval(timer);
+    }
+  }, 1000);
+}
+
+
+function showQuestion(question) {
+  questionElement.innerText = question.question;
+  question.answers.forEach((answer) => {
+    var button = document.createElement('button');
+    button.innerText = answer.text;
+    button.classList.add('btn');
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
+    }
+    button.addEventListener('click', selectAnswer);
+    answerButtonsElement.appendChild(button);
+  });
+}
+
+function resetState() {
+  while (answerButtonsElement.firstChild) {
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+  }
+  nextButton.classList.add('hide');
+}
+
+function selectAnswer(e) {
+  var selectedButton = e.target;
+  var correct = selectedButton.dataset.correct;
+  if (correct) {
+    correctScore++;
+    win.textContent = correctScore;
+  } else {
+    incorrectScore++;
+    lose.textContent = incorrectScore;
+  }
+  setStatusClass(document.body, correct);
+  Array.from(answerButtonsElement.children).forEach((button) => {
+    setStatusClass(button, button.dataset.correct);
+  });
+  if (shuffledQuestions.length > currentQuestionIndex + 1) {
+    nextButton.classList.remove('hide');
+  } else {
+    clearInterval(timer);
+    questionContainerElement.classList.add('hide');
+    startButton.classList.remove('hide');
+  }
+}
+
+function setStatusClass(element, correct) {
+  clearStatusClass(element);
+  if (correct) {
+    element.classList.add('correct');
+  } else {
+    element.classList.add('wrong');
+  }
+}
+
+function clearStatusClass(element) {
+  element.classList.remove('correct');
+  element.classList.remove('wrong');
+}
+
