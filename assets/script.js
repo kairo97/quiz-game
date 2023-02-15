@@ -105,7 +105,7 @@ function startGame() {
 }
 function setNextQuestion() {
   resetState();
-  if (currentQuestionIndex < shuffledQuestions.length) {
+  if ( shuffledQuestions.length > currentQuestionIndex ) {
     showQuestion(shuffledQuestions[currentQuestionIndex]);
     countDown();
   } else {
@@ -115,19 +115,23 @@ function setNextQuestion() {
   }
 }
 function countDown() {
-  timeLeft = 10;
-  clockElement.textContent = timeLeft;
-  timer = setInterval(function() {
-    if (timeLeft > 0) {
-      timeLeft--;
-      clockElement.textContent = timeLeft;
-    } else {
-        setNextQuestion();
+    timeLeft = 10;
+    clockElement.textContent = timeLeft;
+    clearInterval(timer);
+    timer = setInterval(function() {
+      if (timeLeft > 0) {
+        timeLeft--;
+        clockElement.textContent = timeLeft;
+      } else {
+        clearInterval(timer);
         incorrectScore++;
-      clearInterval(timer);
-    }
-  }, 1000);
-}
+        win.textContent = correctScore;
+        lose.textContent = incorrectScore;
+        setNextQuestion();
+      }
+    }, 1000);
+  }
+  
 
 
 function showQuestion(question) {
@@ -172,6 +176,8 @@ function selectAnswer(e) {
     questionContainerElement.classList.add('hide');
     startButton.classList.remove('hide');
   }
+  currentQuestionIndex++;
+  setNextQuestion();
 }
 
 function setStatusClass(element, correct) {

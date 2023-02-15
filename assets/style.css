@@ -93,4 +93,7 @@ max-height: 200px;
 }
 .hide{
     display: none;
+} 
+#c{
+    order: 2 ;
 }
